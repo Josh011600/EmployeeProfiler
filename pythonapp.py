@@ -7,7 +7,7 @@ app = Flask(__name__)
 def get_data():
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM user;")
+    cursor.execute("SELECT * FROM users;")
     data = cursor.fetchall()
     conn.close()
     return jsonify(data)
