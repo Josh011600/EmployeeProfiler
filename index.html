@@ -1,85 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <title>Login Form</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
-    
-   
-    <div class="login-form">
-        <h2>Login</h2>
-    <form action="/send-verification-code" method="POST">
-        <label for="phone_number">Enter your phone number:</label>
-        <input type="text" id="phone_number" name="phone_number" required>
-        <button type="submit" class="login-button">Login</button>
+    <h2>Login</h2>
+    <form action="/login" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Login</button>
     </form>
-        <a href="#" class="forgot-password">Forgot Password?</a>
-        <button class="register-button">Register</button>
-    </div>
- <!--  <script>
-        document.addEventListener('DOMContentLoaded', () => {
-    // Function to fetch data from the server and display it
-    function fetchDataAndDisplay() {
-        fetch('http://localhost:5000/api/data')
-            .then(response => response.json())
-            .then(data => {
-                const dataList = document.getElementById('data-list');
-                dataList.innerHTML = ''; // Clear the existing data
-                data.forEach(item => {
-                    const li = document.createElement('li');
-                    li.textContent = `Name: ${item.name}, Age: ${item.age}`;
-                    dataList.appendChild(li);
-                });
-            })
-            .catch(error => console.error('Error:', error));
-    }
-
-    // Call the function initially to fetch and display data on page load
-    fetchDataAndDisplay();
-
-    // Handle form submission
-    const insertForm = document.getElementById('insert-form');
-    insertForm.addEventListener('submit', (event) => {
-        event.preventDefault(); // Prevent form submission (default behavior)
-
-        const nameInput = document.getElementById('name');
-        const idInput = document.getElementById('id');
-
-        // Get the name and id entered by the user
-        const name = nameInput.value;
-        const id = idInput.value;
-
-        // Prepare the data to be sent to the server
-        const dataToSend = {
-            name: name,
-            id: id
-        };
-
-        // Send the data to the server using a POST request
-        fetch('http://localhost:5000/api/data', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dataToSend)
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Data has been inserted successfully, so fetch and display the updated data
-            fetchDataAndDisplay();
-
-            // Reset the form inputs
-            nameInput.value = '';
-            idInput.value = '';
-        })
-        .catch(error => console.error('Error:', error));
-    });
-});
-
-    </script>-->
 </body>
 </html>

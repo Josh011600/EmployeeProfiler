@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Authentication Form</title>
-    <link rel="stylesheet" href="authenticationstyles.css">
+    <title>Verification Code</title>
+     <link rel="stylesheet" href="authenticationstyles.css">
 </head>
 <body>
-    <form>
-        <div class="form-group">
-            <label for="authentication-code">Enter the authentication code that was sent to SMS:</label>
-            <input type="text" id="authentication-code" name="authentication-code" required>
-        </div>
-        <button type="submit" class="send-button">Send</button>
+    <h2>Verification Code</h2>
+    <form action="/verify" method="POST">
+        <input type="hidden" name="username" value="{{ username }}">
+        <input type="hidden" name="password" value="{{ password }}">
+        <label for="verification_code">Enter the verification code sent to your phone:</label>
+        <input type="text" id="verification_code" name="verification_code" required>
+        <button type="submit">Verify</button>
     </form>
 </body>
 </html>
