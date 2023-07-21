@@ -1,41 +1,40 @@
-from flask import Flask, render_template, request, redirect
+# app.py
+from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+import bcrypt
 
-from twilio.rest import Client
-import random
-import sqlite3
-import os
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
+db = SQLAlchemy(app)
 
-# Placeholder user data for demonstration purposes
-users = {
-    'john': {
-        'password': 'password123',
-        'phone_number': '+1234567890'  # Replace with your phone number
-    }
-}
+# Define the User model
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    username = db.Column(db.String(50), unique=True)
+    password = db.Column(db.String(100))
+    role = db.Column(db.String(20))
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('login.html')
 
 @app.route('/login', methods=['POST'])
 def login():
-    username = request.form['username']
-    password = request.form['password']
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
 
-    if username in users and users[username]['password'] == password:
-        return redirect(f'/verify/{username}/{password}')
-    else:
-        return "Invalid username or password."
+        # Check if the username exists in the database
+        user = User.query.filter_by(username=username).first()
+        if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+            # Redirect to the appropriate page based on the role
+            if user.role == 'admin':
+                return redirect(url_for('admin_page'))
+            elif user.role == 'user':
+                return redirect(url_for('user_page'))
 
-@app.route('/verify/<username>/<password>', methods=['GET', 'POST'])
-def verify(username, password):
-    if request.method == 'GET':
-        return render_template('verification.html', username=username, password=password)
+        # If the credentials are incorrect, show an error message
+        return 'Invalid username or password. Please try again.'
 
-    # Verify the entered verification code (you can add your own verification logic)
-    # For this example, we assume the verification code is correct
-    return "Verification successful. You are now logged in."
-
-if __name__ == '__main__':
-    app.run(debug=True)
+# ... rest of the code remains the same ...
