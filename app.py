@@ -9,12 +9,12 @@ def validate_user(username, password):
     cursor = conn.cursor()
 
     # Replace 'users' with the actual table name in your database
-    cursor.execute("SELECT role FROM users WHERE username=? AND password=?", (username, password))
+    cursor.execute("SELECT username, role FROM users WHERE username=? AND password=?", (username, password))
     user = cursor.fetchone()
 
     conn.close()
-
-    return user[0] if user else None
+    
+    return user if user else None
 
 @app.route('/')
 def index_page():
@@ -25,27 +25,35 @@ def index():
     username = request.form['username']
     password = request.form['password']
 
-    role = validate_user(username, password)
+    user = validate_user(username, password)
+    
+    if user:
+        username, role = user
+          # Access 'username' at index 2
+        role = user[1]  # Access 'role' at index 4
+        if role == 'admin':
+            # Add the logic for admin login (e.g., session management, redirect to admin dashboard)
+            return render_template('admin.html', username=username, role=role)
+        elif role == 'user':
+            # Add the logic for user login (e.g., session management, redirect to user dashboard)
+            return render_template('user.html', username=username, role=role)
+    
+    # Add the logic for failed login (e.g., display an error message)
+    return "Invalid credentials. Please try again."
 
-    if role == 'admin':
-        # Add the logic for admin login (e.g., session management, redirect to admin dashboard)
-        return render_template('admin.html')
-    elif role == 'user':
-        # Add the logic for user login (e.g., session management, redirect to user dashboard)
-        return render_template('user.html')
-    else:
-        # Add the logic for failed login (e.g., display an error message)
-        return "Invalid credentials. Please try again."
 
 @app.route('/admin.html')
 def admin_dashboard():
-    # Add the logic for the admin dashboard here
-    return "Welcome to the admin dashboard!"
 
+    # Add the logic for the admin dashboard here
+    username = "username"  # Replace this with the actual username retrieved from the database
+    return render_template('admin.html', username=username, )
 @app.route('/user.html')
 def user_dashboard():
+
     # Add the logic for the user dashboard here
-    return "Welcome to the user dashboard!"
+    username = "username"  # Replace this with the actual username retrieved from the database
+    return render_template('user.html', username=username)
 
 if __name__ == '__main__':
     app.run(debug=True)
