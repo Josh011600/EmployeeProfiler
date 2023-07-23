@@ -21,7 +21,7 @@ def index_page():
     return render_template('index.html')
 
 @app.route('/index', methods=['POST'])
-def login():
+def index():
     username = request.form['username']
     password = request.form['password']
 
@@ -29,10 +29,10 @@ def login():
 
     if role == 'admin':
         # Add the logic for admin login (e.g., session management, redirect to admin dashboard)
-        return redirect(url_for('admin.html', username=username))
+        return render_template('admin.html')
     elif role == 'user':
         # Add the logic for user login (e.g., session management, redirect to user dashboard)
-        return redirect(url_for('user.html', username=username))
+        return render_template('user.html')
     else:
         # Add the logic for failed login (e.g., display an error message)
         return "Invalid credentials. Please try again."
