@@ -1,7 +1,11 @@
-import sqlite3
-from flask import Flask, render_template, request, redirect, url_for
 
+from flask import Flask, render_template, request, redirect, url_for
+import sqlite3
+
+from datetime import datetime
 app = Flask(__name__)
+
+
 
 # Function to validate user credentials and return the role
 def validate_user(username, password):
@@ -16,7 +20,10 @@ def validate_user(username, password):
     
     return user if user else None
 
-@app.route('/')
+
+
+
+@app.route('/index')
 def index_page():
     return render_template('index.html')
 
@@ -55,5 +62,35 @@ def user_dashboard():
     username = "username"  # Replace this with the actual username retrieved from the database
     return render_template('user.html', username=username)
 
+@app.route('/register')
+def register_form():
+    return render_template('registeruser.html')
+
+@app.route('/register', methods=['POST'])
+def register_submit():
+    conn = sqlite3.connect('mydatabase.db')
+    cursor = conn.cursor()
+    name = request.form['name']
+    age = int(request.form['age'])
+    username = request.form['username']
+    password = request.form['password']
+    date_of_birth = request.form['date_of_birth']
+    # Convert the date string to a datetime object
+    date_of_birth = datetime.strptime(date_of_birth, '%Y-%m-%d').date()
+    # Insert the data into the 'users' table
+    cursor.execute("INSERT INTO users (name, age, username, password, date_of_birth, role) VALUES (?, ?, ?, ?, ?, 'user')",
+                   (name, age, username, password, date_of_birth))
+    conn.commit()
+
+    return redirect(url_for('success'))
+
+@app.route('/success')
+def success():
+    
+
+    return render_template('success.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+    app.debug = True 
