@@ -23,9 +23,7 @@ def validate_user(username, password):
     return user if user else None
 
 
-
-
-@app.route('/index')
+@app.route('/')
 def index_page():
     return render_template('index.html')
 
@@ -56,7 +54,8 @@ def admin_dashboard():
 
     # Add the logic for the admin dashboard here
     username = "username"  # Replace this with the actual username retrieved from the database
-    return render_template('admin.html', username=username, )
+    return render_template('admin.html', username=username)
+
 @app.route('/user.html')
 def user_dashboard():
 
