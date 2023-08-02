@@ -23,6 +23,9 @@ def validate_user(username, password):
     return user if user else None
 
 
+
+
+
 @app.route('/')
 def index_page():
     return render_template('index.html')
@@ -64,7 +67,7 @@ def user_dashboard():
     return render_template('user.html', username=username)
 
 @app.route('/register')
-def register_form():
+def register():
     return render_template('registeruser.html')
 
 @app.route('/register', methods=['POST'])
@@ -74,13 +77,23 @@ def register_submit():
     name = request.form['name']
     age = int(request.form['age'])
     username = request.form['username']
+    email = request.form['email']
     password = request.form['password']
     date_of_birth = request.form['date_of_birth']
     # Convert the date string to a datetime object
     date_of_birth = datetime.strptime(date_of_birth, '%Y-%m-%d').date()
+
+     # Check if the username or email already exists in the database
+    cursor.execute("SELECT * FROM users WHERE username = ? OR email = ?", (username, email))
+    existing_user = cursor.fetchone()
+
+    if existing_user:
+        return redirect(url_for('registration_failed', reason='Username or email already exists'))
+
     # Insert the data into the 'users' table
-    cursor.execute("INSERT INTO users (name, age, username, password, date_of_birth, role) VALUES (?, ?, ?, ?, ?, 'user')",
-                   (name, age, username, password, date_of_birth))
+    cursor.execute("INSERT INTO users (name, email, age, username, password, date_of_birth, role) VALUES (?, ?, ?, ?, ?, ?, 'user')",
+               (name, email, age, username, password, date_of_birth))
+
     conn.commit()
 
     return redirect(url_for('success'))
@@ -90,6 +103,11 @@ def success():
     
 
     return render_template('success.html')
+
+@app.route('/registration_failed')
+def registration_failed():
+    reason = request.args.get('reason', 'Unknown error')
+    return render_template('registration_failed.html', reason=reason)
 
 if __name__ == '__main__':
     app.run(debug=True)
