@@ -52,6 +52,7 @@ def index():
     return "Invalid credentials. Please try again."
 
 
+
 @app.route('/admin.html')
 def admin_dashboard():
 
@@ -89,7 +90,8 @@ def register_submit():
 
     if existing_user:
         return redirect(url_for('registration_failed', reason='Username or email already exists'))
-
+    conn = sqlite3.connect('mydatabase.db')
+    cursor = conn.cursor()
     # Insert the data into the 'users' table
     cursor.execute("INSERT INTO users (name, email, age, username, password, date_of_birth, role) VALUES (?, ?, ?, ?, ?, ?, 'user')",
                (name, email, age, username, password, date_of_birth))
