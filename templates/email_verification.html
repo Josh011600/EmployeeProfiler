@@ -1,0 +1,17 @@
+<!-- templates/email_verification.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='emailverification.css') }}">
+    <title>Email Verification</title>
+</head>
+<body>
+    <h1>Email Verification</h1>
+    <p>Thank you for registering. To verify your email, please click the link below:</p>
+    <p><a href="{{ verification_link }}">Verify Email</a></p>
+    <p>If you didn't request this email, you can ignore it.</p>
+</body>
+</html>
