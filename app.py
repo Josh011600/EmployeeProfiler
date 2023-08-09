@@ -3,10 +3,12 @@ from flask import Flask, render_template, request, redirect, url_for
 
 import sqlite3
 from datetime import datetime
-app = Flask(__name__)
-
-
-
+def create_app():
+    app = Flask(__name__)
+    app,config['SECRET KEY'] = 'ABCDEFGHIJKLMNOP'
+    if __name__ == '__main__':
+    app.run(debug=True)
+    return app
 
 
 
@@ -23,9 +25,9 @@ def validate_user(username, password):
 
     conn.close()
     
+    
+    
     return user if user else None
-
-
 
 
 
@@ -114,7 +116,6 @@ def registration_failed():
     reason = request.args.get('reason', 'Unknown error')
     return render_template('registration_failed.html', reason=reason)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
 
 
