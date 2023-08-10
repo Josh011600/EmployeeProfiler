@@ -1,18 +1,33 @@
-from flask import Blueprint 
+from flask import Flask, render_template, request, redirect, url_for
+import sqlite3
 
-views = Blueprint('views', __name__)
+from datetime import datetime
+app = Flask(__name__)
 
 
 
-@views.route('/')
+
+# Function to validate user credentials and return the role
+def validate_user(username, password):
+    conn = sqlite3.connect('mydatabase.db')
+    cursor = conn.cursor()
+
+    # Replace 'users' with the actual table name in your database
+    cursor.execute("SELECT username, role FROM users WHERE username=? AND password=?", (username, password))
+    user = cursor.fetchone()
+
+    conn.close()
+    
+    return user if user else None
+
+
+@app.route('/')
 def index_page():
     return render_template('index.html')
 
 
 
-
-
-@views.route('/index', methods=['POST'])
+@app.route('/index', methods=['POST'])
 def index():
     username = request.form['username']
     password = request.form['password']
@@ -35,25 +50,25 @@ def index():
 
 
 
-@views.route('/admin.html')
+@app.route('/admin.html')
 def admin_dashboard():
 
     # Add the logic for the admin dashboard here
     username = "username"  # Replace this with the actual username retrieved from the database
     return render_template('admin.html', username=username)
 
-@views.route('/user.html')
+@app.route('/user.html')
 def user_dashboard():
 
     # Add the logic for the user dashboard here
     username = "username"  # Replace this with the actual username retrieved from the database
     return render_template('user.html', username=username)
 
-@views.route('/register')
+@app.route('/register')
 def register():
     return render_template('registeruser.html')
 
-@views.route('/register', methods=['POST'])
+@app.route('/register', methods=['POST'])
 def register_submit():
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
@@ -82,13 +97,19 @@ def register_submit():
 
     return redirect(url_for('success'))
 
-@views.route('/success')
+@app.route('/success')
 def success():
     
 
     return render_template('success.html')
 
-@views.route('/registration_failed')
+@app.route('/registration_failed')
 def registration_failed():
     reason = request.args.get('reason', 'Unknown error')
     return render_template('registration_failed.html', reason=reason)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
