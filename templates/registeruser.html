@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Registration Form</title>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='registeruser.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/registeruser.css') }}">
 </head>
 <body>
   <div class="container">
@@ -15,7 +15,7 @@
       <input type="email" name="email" required>
 
       <label for="age">Age</label>
-<input type="number" name="age" maxlength="2" required>
+      <input type="text" name="age" pattern="[0-9]+" maxlength="3" title="Please enter your age" required>
 
       
       <label for="username">Username</label>
@@ -28,7 +28,7 @@
       <input type="date" name="date_of_birth" min="1900-01-01">
       
       <button type="submit">Register</button>
-      <a href="{{ url_for('index_page') }}" style="text-decoration:none">Back to Login</a>
+      <a class="back-button" href="{{ url_for('index_page') }}">Back to Login</a>
     </form>
   </div>
 </body>

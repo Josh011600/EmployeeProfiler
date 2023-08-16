@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
     <div class="login-container">
@@ -20,9 +20,11 @@
         <input type="checkbox" id="rememberMe" name="rememberMe">
         
       
-        <input type="submit" value="Login">
+        <input type="submit" class="loginbutton" value="Login">
         <p>Don't have an account? 
             <a href="/register">Sign Up</a></p>
       </form>
+      </div>
+      <script src="{{ url_for('static', filename='js/rememberme.js') }}"></script>
 </body>
 </html>
