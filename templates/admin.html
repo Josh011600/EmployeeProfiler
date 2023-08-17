@@ -5,15 +5,10 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styleadmin.css') }}">
 </head>
 <body>
-          <!-- Your main content goes here -->
-          <h1>Welcome to the Dashboard</h1>
-        
-    <h1>Welcome, {{ username }}!</h1>
-    <p>Role: {{ role }}</p>
     <!-- Add your admin dashboard content here -->
     <div id="dashboard">
         <div id="sidebar">
-          <a class="button" href="#">Button 1</a>
+          <a class="button" href="#">Display Users</a>
           <a class="button" href="#">Button 2</a>
           <a class="button" href="#">Button 3</a>
           <a class="button" href="#">Button 4</a>
@@ -22,6 +17,8 @@
         </div>
         <div id="main-content">
           <!-- Your main content goes here -->
+          <h1>Welcome, {{ username }}!</h1>
+          <p>Role: {{ role }}</p>
           <h1>Welcome to the Dashboard</h1>
         </div>
 </body>

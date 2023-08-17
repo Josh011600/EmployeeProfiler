@@ -4,8 +4,17 @@ import sqlite3
 from datetime import datetime
 app = Flask(__name__)
 
-
-
+'''
+I need to insert here what will i display in my dashboard.
+@app.route('/')
+def dashboard():
+    conn = sqlite3.connect('mydatabase.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM users')
+    tasks = cursor.fetchall()
+    conn.close()
+    return render_template('index.html', tasks=tasks)
+'''
 
 # Function to validate user credentials and return the role
 def validate_user(username, password):
