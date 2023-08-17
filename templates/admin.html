@@ -7,10 +7,9 @@
 <body>
           <!-- Your main content goes here -->
           <h1>Welcome to the Dashboard</h1>
-        </div>
+        
     <h1>Welcome, {{ username }}!</h1>
     <p>Role: {{ role }}</p>
-    <a href="{{ url_for('index_page') }}"><button>Logout</button></a>
     <!-- Add your admin dashboard content here -->
     <div id="dashboard">
         <div id="sidebar">
@@ -19,6 +18,7 @@
           <a class="button" href="#">Button 3</a>
           <a class="button" href="#">Button 4</a>
           <a class="button" href="#">Button 5</a>
+    <a class="button" href="{{ url_for('index_page') }}">Logout</a>
         </div>
         <div id="main-content">
           <!-- Your main content goes here -->
