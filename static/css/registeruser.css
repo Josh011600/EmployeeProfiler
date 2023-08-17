@@ -1,0 +1,89 @@
+/* Reset some default styling */
+body, h2, label, input, button, a {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Basic styling for the body */
+body {
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Styling for the form container */
+.container {
+  text-align: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Adjust the width as needed */
+  max-width: 500px; /* Add max-width for responsiveness */
+  border: 2px solid #ddd; /* Adjust border size */
+  margin: 0 auto; /* Center the container */
+}
+
+/* Styling for the form heading */
+h2 {
+  margin-bottom: 20px;
+  color: #3498db; /* Blue color */
+}
+
+/* Styling for labels */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Styling for input fields */
+input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+input:focus {
+  border-color: #3498db; /* Blue color on focus */
+}
+
+/* Styling for the submit button */
+button {
+  padding: 10px 20px;
+  font-size: 20px;
+  background-color: #3498db; /* Blue color */
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #2980b9; /* Darker blue color on hover */
+}
+
+/* Styling for the back to login link */
+.back-button {
+  display: inline-block;
+  font-size: 20px;
+  padding: 10px 20px;
+  background-color: #e74c3c; /* Red color */
+  color: white;
+  border: none;
+  border-radius: 3px;
+  text-decoration: none;
+  margin-top: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.back-button:hover {
+  background-color: #c0392b; /* Darker red color on hover */
+}
