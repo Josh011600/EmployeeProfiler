@@ -53,9 +53,10 @@ def index():
         elif role == 'user':
             # Add the logic for user login (e.g., session management, redirect to user dashboard)
             return render_template('user.html', username=username, role=role)
-    
+        
+        
     # Add the logic for failed login (e.g., display an error message)
-    return "Invalid credentials. Please try again."
+    return render_template('index.html', login_failed=True)
 
 
 
