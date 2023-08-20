@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #070b2d; /* Dark blue color representing outer space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background-color: #1a237e; /* Darker blue color for the container */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+
+/* ... other styles ... */
+
+.login-container form {
+display: flex;
+flex-direction: column;
+}
+
+/* Add a new CSS block to modify the form behavior */
+.login-container form label {
+display: flex;
+align-items: center;
+margin-bottom: 8px;
+color: #ffffff;
+font-weight: 600;
+}
+
+.login-container form input[type="checkbox"] {
+margin: 0px; /* Add some spacing between the checkbox and the label */
+}
+
+/* ... other styles ... */
+
+
+.login-container label {
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-weight: 600;
+}
+.login-container label:hover {
+color: #f0f0f0;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.login-container input[type="submit"] {
+    background-color: #4CAF50;
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login-container input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.login-container p {
+    text-align: center;
+    margin-top: 20px;
+    color: #777777;
+}
+
+.login-container p a {
+    color: #4CAF50;
+    text-decoration: none;
+}
