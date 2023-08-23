@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 
+
 from datetime import datetime
+
 app = Flask(__name__)
 
 '''
@@ -17,12 +19,17 @@ def dashboard():
 '''
 
 # Function to validate user credentials and return the role
-def validate_user(username, password):
+
+def validate_user(username_or_email, password):
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
+    # Check if the input is an email or username
+    if '@' in username_or_email:  # Assuming email addresses have '@'
+        query = "SELECT username, usertype FROM employees WHERE email=? AND password=?"
+    else:
+        query = "SELECT username, usertype FROM employees WHERE username=? AND password=?"
 
-    # Replace 'users' with the actual table name in your database
-    cursor.execute("SELECT username, role FROM users WHERE username=? AND password=?", (username, password))
+    cursor.execute(query, (username_or_email, password))
     user = cursor.fetchone()
 
     conn.close()
@@ -44,15 +51,15 @@ def index():
     user = validate_user(username, password)
     
     if user:
-        username, role = user
+        username, usertype = user
           # Access 'username' at index 2
-        role = user[1]  # Access 'role' at index 4
-        if role == 'admin':
+        usertype = user[1]  # Access 'role' at index 4
+        if usertype == 'admin':
             # Add the logic for admin login (e.g., session management, redirect to admin dashboard)
-            return render_template('admin.html', username=username, role=role)
-        elif role == 'user':
+            return render_template('admin.html', username=username, usertype=usertype)
+        elif usertype == 'employee':
             # Add the logic for user login (e.g., session management, redirect to user dashboard)
-            return render_template('user.html', username=username, role=role)
+            return render_template('user.html', username=username, usertype=usertype)
         
         
     # Add the logic for failed login (e.g., display an error message)
@@ -87,12 +94,12 @@ def register_submit():
     username = request.form['username']
     email = request.form['email']
     password = request.form['password']
-    date_of_birth = request.form['date_of_birth']
+    dateOfBirth = request.form['date_of_birth']
     # Convert the date string to a datetime object
-    date_of_birth = datetime.strptime(date_of_birth, '%Y-%m-%d').date()
+    dateOfBirth = datetime.strptime(dateOfBirth, '%Y-%m-%d').date()
 
      # Check if the username or email already exists in the database
-    cursor.execute("SELECT * FROM users WHERE username = ? OR email = ?", (username, email))
+    cursor.execute("SELECT * FROM employees WHERE username = ? OR email = ?", (username, email))
     existing_user = cursor.fetchone()
 
     if existing_user:
@@ -100,8 +107,8 @@ def register_submit():
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
     # Insert the data into the 'users' table
-    cursor.execute("INSERT INTO users (name, email, age, username, password, date_of_birth, role) VALUES (?, ?, ?, ?, ?, ?, 'user')",
-               (name, email, age, username, password, date_of_birth))
+    cursor.execute("INSERT INTO employees (name, age, email, username, password, dateOfBirth, usertype) VALUES (?, ?, ?, ?, ?, ?, 'employee')",
+               (name, age, email, username, password, dateOfBirth))
 
     conn.commit()
 
