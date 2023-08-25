@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #070b2d; /* Dark blue color representing outer space */
+    background-color: #0c0d46; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,8 +8,10 @@ body {
     margin: 0;
 }
 
+
+/*login form */
 .login-container {
-    background-color: #1a237e; /* Darker blue color for the container */
+    background-color: #15385c; /* Darker blue color for the container */
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -89,3 +91,19 @@ text-decoration: none;
 .login-button:hover {
     background-color: #45a049;
 }
+
+.remember-me {
+    display: flex;
+    align-items: center;
+}
+
+.remember-me label {
+    margin-right: 10px; /* Adjust this value as needed for spacing */
+}
+.remember-me {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Adjust the column sizes as needed */
+    align-items: center;
+    column-gap: 10px; /* Adjust this value for spacing */
+}
+/* Login form end */

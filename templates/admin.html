@@ -4,24 +4,63 @@
     <title>Admin Dashboard</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styleadmin.css') }}">
-</head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/adminform.css') }}">
+    
+  </head>
 <body>
     <!-- Add your admin dashboard content here -->
     <div id="dashboard">
         <div id="sidebar">
           <a class="button" href="#">Display User Info</a>
-          <a class="button" href="#">Button 2</a>
-          <a class="button" href="#">Button 3</a>
-          <a class="button" href="#">Button 4</a>
-          <a class="button" href="#">Button 5</a>
-    <a class="button" href="{{ url_for('index_page') }}">Logout</a>
+          <a class="button" href="#"></a>
+          <a class="button" href="#"></a>
+          <a class="button" href="#"></a>
+          <a class="button" href="#"></a>
+          <a class="button" href="{{ url_for('index_page') }}">Logout</a>
+    
         </div>
         <div id="main-content">
           <!-- Your main content goes here -->
           <h1>Welcome, {{ username }}!</h1>
           <p>Usertype: {{ usertype }}</p>
-          <h1>Welcome to the Dashboard</h1>
-        </div>
+          
+      <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Date of Birth</th>
+            <th>Usertype</th>
+            
+        </tr>   
+      
+        {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee[0] }}</td>
+                        <td>{{ employee[1] }}</td>
+                        <td>{{ employee[2] }}</td>
+                        <td>{{ employee[3] }}</td>
+                        <td>{{ employee[6] }}</td>
+                        <td>{{ employee[7] }}</td>
+                    </tr>
+                {% endfor %}
+        
+    </table>
+    </div>
+       </div>
+
+<!-- Drop down Settings
+        <div class="dropdown">
+          <button class="dropbtn" id="dropdownButton">Settings</button>
+    <div class="dropdown-content" id="dropdownContent">
+              <a href="#">Profile</a>
+              <a href="#">Account</a>
+              <a href="#">Privacy</a>
+              <a href="#">Notifications</a>
+              
+          </div>
+      </div>
+      -->
 </body>
 </html>

@@ -1,22 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for
+from flask_mail import Mail, Message
 import sqlite3
-
-
 from datetime import datetime
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 
 app = Flask(__name__)
 
-'''
-I need to insert here what will i display in my dashboard.
 @app.route('/')
 def dashboard():
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM users')
+    cursor.execute('SELECT * FROM employees')
     tasks = cursor.fetchall()
     conn.close()
     return render_template('index.html', tasks=tasks)
-'''
+
 
 # Function to validate user credentials and return the role
 
@@ -53,9 +51,10 @@ def index():
     if user:
         username, usertype = user
           # Access 'username' at index 2
-        usertype = user[1]  # Access 'role' at index 4
+        usertype = user[1] 
         if usertype == 'admin':
             # Add the logic for admin login (e.g., session management, redirect to admin dashboard)
+            employees = display_table()
             return render_template('admin.html', username=username, usertype=usertype)
         elif usertype == 'employee':
             # Add the logic for user login (e.g., session management, redirect to user dashboard)
@@ -67,19 +66,21 @@ def index():
 
 
 
-@app.route('/admin.html')
-def admin_dashboard():
 
-    # Add the logic for the admin dashboard here
-    username = "username"  # Replace this with the actual username retrieved from the database
-    return render_template('admin.html', username=username)
 
-@app.route('/user.html')
-def user_dashboard():
+@app.route('/')
+def display_table():
+    conn = sqlite3.connect('mydatabase.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, name, age, email, dateOfBirth, usertype FROM employees") 
+    employees = cursor.fetchall()
+    conn.close()
 
-    # Add the logic for the user dashboard here
-    username = "username"  # Replace this with the actual username retrieved from the database
-    return render_template('user.html', username=username)
+    return render_template('admin.html', employees=employees)
+
+
+
+
 
 @app.route('/register')
 def register():
@@ -126,7 +127,11 @@ def registration_failed():
     return render_template('registration_failed.html', reason=reason)
 
 
+
+
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
-
-

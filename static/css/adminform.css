@@ -7,7 +7,7 @@ body, h1, p, a, button {
   
   /* Basic styling for the body */
   body {
-    background-color: #f0f0f0;
+    background-color: #2a0d6d;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,7 +19,7 @@ body, h1, p, a, button {
     display: flex;
     border: 1px solid #ddd;
     border-radius: 5px;
-    overflow: hidden;
+    overflow: scroll;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
@@ -27,6 +27,7 @@ body, h1, p, a, button {
   /* Styling for the sidebar */
   #sidebar {
     width: 200px;
+    max-width: 600px;
     background-color: #333;
     color: white;
   }
@@ -48,7 +49,9 @@ body, h1, p, a, button {
   #main-content {
     flex: 1;
     padding: 20px;
-    margin-left: 400px;
+    margin-left: 20px;
+    width: 700px;
+    max-width: 100%;
   }
   
   h1 {
@@ -59,3 +62,32 @@ body, h1, p, a, button {
   #logout-button {
     margin-top: 20px;
   }
+
+
+
+.dropdown-content {
+    display: none;
+}
+
+/* Show the dropdown content when its parent has the "show" class */
+.show .dropdown-content {
+    display: block;
+}
+
+.dashboard {
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+.table th {
+  background-color: #f2f2f2;
+}
