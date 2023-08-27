@@ -54,6 +54,30 @@ body, h1, p, a, button {
     max-width: 100%;
   }
   
+  .search-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 20px;
+}
+  .searchbox 
+  {
+    flex: 1; /* Take available space */
+    max-width: 300px; /* Limit width if needed */
+    margin-right: 10px;
+  }
+  .btnsearch
+  {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
   h1 {
     margin-bottom: 20px;
   }

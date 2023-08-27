@@ -21,9 +21,18 @@
         </div>
         <div id="main-content">
           <!-- Your main content goes here -->
-          <h1>Welcome, {{ username }}!</h1>
-          <p>Usertype: {{ usertype }}</p>
-          
+<!-- Your main content goes here 
+<h1>Welcome, {{ name|replace("'", "")|replace("(", "")|replace(")", "")|replace(",", "") }}!</h1>
+-->
+<h1>Welcome {{ usertype }}!
+  id: {{ user_data[0] }} </h1>
+
+
+
+          <div class="search-container">
+          <input type="search" class="searchbox" placeholder="Search...">
+          <button class="btnsearch">search</button>
+          </div>
       <table class="table">
         <tr>
             <th>ID</th>
@@ -32,20 +41,20 @@
             <th>Email</th>
             <th>Date of Birth</th>
             <th>Usertype</th>
-            
+            <th>Action</th>
         </tr>   
-      
+        
         {% for employee in employees %}
-                    <tr>
+        <tr>
                         <td>{{ employee[0] }}</td>
                         <td>{{ employee[1] }}</td>
                         <td>{{ employee[2] }}</td>
                         <td>{{ employee[3] }}</td>
                         <td>{{ employee[6] }}</td>
                         <td>{{ employee[7] }}</td>
-                    </tr>
+                      </tr>
                 {% endfor %}
-        
+              
     </table>
     </div>
        </div>
