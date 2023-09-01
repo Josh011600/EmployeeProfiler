@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from flask_mail import Mail, Message
 import sqlite3
 from datetime import datetime
-from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 
 app = Flask(__name__)
 
@@ -34,13 +32,7 @@ def validate_user(username_or_email, password):
     
     return user if user else None
 
-# Simulating user authentication
-def authenticate_user(username, password):
-    # Logic to authenticate user and fetch user ID
-    # Replace this with your actual authentication logic
-    if username == username and password == password:
-        return 1  # Return a user ID
-    return None
+
 
 
 
@@ -52,17 +44,9 @@ def getEmployees():
   conn.close()
   return employees
 
-def get_user_data(user_id):
-    conn = sqlite3.connect('mydatabase.db')
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM employees WHERE id = ?', (user_id,))
-    user_data = cursor.fetchone()
-    conn.close()
-    return user_data
 
 
-def get_current_user_id():
-    return session.get('user_id')
+
 
 
 
@@ -87,48 +71,17 @@ def index():
     if user:
         username, usertype = user
           # Access 'username' at index 2
-        usertype = user[1] 
-        if usertype:
-            # Add the logic for admin login (e.g., session management, redirect to admin dashboard)
-            user_id = authenticate_user(username, password)
+        
+    if usertype == 'admin':
+            user_id = username, password
             employees = getEmployees()
-            name = getName()
-            '''user_id = get_current_user_id()''' # Replace this with your method to get the user's ID
-            user_data = get_user_data(user_id)
-            
+           
             if user_id:
-                session['id'] = user_id  # Store user ID in session
-                return render_template('admin.html', username=username, usertype=usertype, employees=employees, name=name, user_data=user_data)
+                return render_template('admin.html', username=username, usertype=usertype, employees=employees)
     elif usertype == 'employee':
-            # Add the logic for user login (e.g., session management, redirect to user dashboard)
-            return render_template('user.html', username=username, usertype=usertype)
+             return render_template('user.html', username=username, usertype=usertype)
     
-        
-       
-        
-        
-    # Add the logic for failed login (e.g., display an error message)
     return render_template('index.html', login_failed=True)
-
-
-
-
-'''
-@app.route('/')
-def display_table():
-
-    conn = sqlite3.connect('mydatabase.db')
-    cursor = conn.cursor()
-    cursor.execute("SELECT id, name, age, email, dateOfBirth, usertype FROM employees") 
-    employees = cursor.fetchall()
-    conn.close()
-
-    return render_template('admin.html', employees=employees)
-'''
-
-
-
-
 
 
 @app.route('/register')
