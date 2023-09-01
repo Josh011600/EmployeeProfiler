@@ -31,7 +31,20 @@
           <div class="search-container">
           <input type="search" class="searchbox" placeholder="Search...">
           <button class="btnsearch">search</button>
-          </div>
+          <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+        <button type="button" class="saveButton" id="saveButton" onclick="saveUser()" style="display: none;">Save</button>
+          <br><br>
+        </div>
       <table class="table">
         <tr>
             <th>ID</th>
@@ -51,10 +64,26 @@
                         <td>{{ employee[3] }}</td>
                         <td>{{ employee[6] }}</td>
                         <td>{{ employee[7] }}</td>
+                        <td><button type="button" id="updateButton" onclick="updateUser()">Update</button><button type="button" id="deleteButton" onclick="deleteUser()">Delete</button></td>
                       </tr>
                 {% endfor %}
               
     </table>
+    <script>
+      function updateUser() {
+          // Implement the update logic here
+          window.alert('Update button clicked');
+      }
+      function saveUser() {
+            // Implement the logic to save user data
+            alert('Save button clicked');
+            document.getElementById('saveButton').style.display = 'none';
+        }
+      function deleteUser() {
+          // Implement the delete logic here
+          alert('Delete button clicked');
+      }
+  </script>
     </div>
        </div>
 

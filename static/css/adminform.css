@@ -54,29 +54,76 @@ body, h1, p, a, button {
     max-width: 100%;
   }
   
-  .search-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    padding: 20px;
+/* Styles for the search container */
+.search-container {
+  text-align: center;
+  padding: 20px;
 }
-  .searchbox 
-  {
-    flex: 1; /* Take available space */
-    max-width: 300px; /* Limit width if needed */
-    margin-right: 10px;
-  }
-  .btnsearch
-  {
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: white;
-    border: none;
+
+/* Styles for the search input */
+.searchbox {
+  padding: 10px;
+  width: 200px;
+  max-width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Styles for the search button */
+.btnsearch {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-  }
+    margin-bottom: 10px;
+}
+
+/* Adjust styles for smaller screens */
+@media (max-width: 600px) {
+    .searchbox {
+        width: 100%;
+    }
+    .btnsearch {
+        margin-top: 10px;
+        margin-left: 0;
+    }
+}
+/* Alternative Styles for the Save button */
+.saveButton {
+  padding: 10px 20px;
+  background-color: #007bff; /* Blue color for save button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+  display: none; /* Initially hidden */
+}
+
+.saveButton:hover {
+  background-color: #0056b3; /* Darker blue color on hover */
+}
+
 
   h1 {
     margin-bottom: 20px;
