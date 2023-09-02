@@ -31,6 +31,7 @@
           <div class="search-container">
           <input type="search" class="searchbox" placeholder="Search...">
           <button class="btnsearch">search</button>
+          
           <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
 
@@ -42,9 +43,10 @@
 
         <label for="dob">Date of Birth:</label>
         <input type="date" id="dob" name="dob" required>
-        <button type="button" class="saveButton" id="saveButton" onclick="saveUser()" style="display: none;">Save</button>
-          <br><br>
-        </div>
+    
+        <button type="submit" id="saveButton" onclick="saveUser()">Hello</button>
+        
+       
       <table class="table">
         <tr>
             <th>ID</th>
@@ -69,6 +71,7 @@
                 {% endfor %}
               
     </table>
+    </div>
     <script>
       function updateUser() {
           // Implement the update logic here
@@ -84,7 +87,7 @@
           alert('Delete button clicked');
       }
   </script>
-    </div>
+    
        </div>
 
 <!-- Drop down Settings
