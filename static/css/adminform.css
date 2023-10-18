@@ -1,164 +1,32 @@
-/* Reset some default styling */
-body, h1, p, a, button {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Basic styling for the body */
-  body {
-    background-color: #2a0d6d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  /* Styling for the dashboard container */
-  #dashboard {
-    display: flex;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    overflow: scroll;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Styling for the sidebar */
-  #sidebar {
-    width: 200px;
-    max-width: 600px;
-    background-color: #333;
-    color: white;
-  }
-  
-  .button {
-    margin: 10px 0;
-    display: block;
-    padding: 10px 20px;
-    color: white;
-    text-decoration: none;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  .button:hover {
-    background-color: #555;
-  }
-  
-  /* Styling for the main content area */
-  #main-content {
-    flex: 1;
-    padding: 20px;
-    margin-left: 20px;
-    width: 700px;
-    max-width: 100%;
-  }
-  
-/* Styles for the search container */
-.search-container {
-  text-align: center;
-  padding: 20px;
-}
-
-/* Styles for the search input */
-.searchbox {
-  padding: 10px;
-  width: 200px;
-  max-width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-/* Styles for the search button */
-.btnsearch {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-
-  label {
-    display: block;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-input[type="text"],
-input[type="number"],
-input[type="email"],
-input[type="date"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-/* Adjust styles for smaller screens */
-@media (max-width: 600px) {
-    .searchbox {
-        width: 100%;
+/* Apply responsive styles for smaller screens */
+@media screen and (max-width: 768px) {
+    #dashboard {
+        flex-direction: column; /* Stack elements vertically */
     }
-    .btnsearch {
-        margin-top: 10px;
-        margin-left: 0;
+
+    #sidebar {
+        width: 100%; /* Full width on smaller screens */
+        text-align: center; /* Center the links */
+        padding: 20px 0; /* Add spacing to links */
+    }
+
+    #main-content {
+        width: 100%; /* Full width on smaller screens */
+    }
+
+    /* Adjust the font size for better readability on small screens */
+    h1 {
+        font-size: 24px;
+    }
+
+    .searchbox, .search-container label, input[type="text"], input[type="number"], input[type="email"], input[type="date"] {
+        width: 100%; /* Full width for input fields */
+    }
+
+    /* Adjust table cell padding for compact layout */
+    .table th, .table td {
+        padding: 5px;
     }
 }
-/* Alternative Styles for the Save button */
-#saveButton {
-  padding: 10px 20px;
-  background-color: #007bff; /* Blue color for save button */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 10px;
-  display: none; /* Initially hidden */
-}
 
-#saveButton:hover {
-  background-color: #0056b3; /* Darker blue color on hover */
-}
-
-
-  h1 {
-    margin-bottom: 20px;
-  }
-  
-  /* Styling for the logout button */
-  #logout-button {
-    margin-top: 20px;
-  }
-
-
-
-.dropdown-content {
-    display: none;
-}
-
-/* Show the dropdown content when its parent has the "show" class */
-.show .dropdown-content {
-    display: block;
-}
-
-.dashboard {
-  padding: 20px;
-  background-color: #f0f0f0;
-}
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-.table th, .table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-.table th {
-  background-color: #f2f2f2;
-}
+/* Additional responsive styles can be added as needed */

@@ -3,7 +3,7 @@
 <head>
     <title>Admin Dashboard</title>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/adminform.css') }}">
     
   </head>
@@ -26,13 +26,50 @@
 -->
 <h1>Welcome {{ usertype }} {{ username }} </h1>
 
+<script>
+ //this is json code. ill use it later.
+function searchDatabase() {
+    const searchBox = document.getElementById('searchBox');
+    const searchResults = document.getElementById('searchResults');
+    
+    const searchTerm = searchBox.value.trim(); // Trim whitespace
 
+    if (searchTerm === '') {
+        searchResults.innerHTML = ''; // Clear previous results
+        return;
+    }
+
+    // Perform an AJAX request to your server-side script
+    fetch('/search', {
+        method: 'POST',
+        body: JSON.stringify({ query: searchTerm }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.length > 0) {
+            // Display search results if there are matches
+            const resultsHTML = data.map(result => `<div>${result}</div>`).join('');
+            searchResults.innerHTML = resultsHTML;
+        } else {
+            // Display "No results" message if there are no matches
+            searchResults.innerHTML = 'No results';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+</script>
 
           <div class="search-container">
-          <input type="search" class="searchbox" placeholder="Search...">
+          <input type="search" id="searchBox" class="searchbox" placeholder="Search..." oninput="searchDatabase()">
           <button class="btnsearch">search</button>
-          
-          <label for="name">Name:</label>
+  </div>        
+ <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
 
         <label for="age">Age:</label>
