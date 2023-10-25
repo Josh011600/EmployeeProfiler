@@ -99,7 +99,7 @@ def register_submit():
     password = request.form['password']
     dateOfBirth = request.form['date_of_birth']
     # Convert the date string to a datetime object
-    dateOfBirth = datetime.strptime(dateOfBirth, '%m-%d-%Y').date()
+    dateOfBirth = datetime.strptime(dateOfBirth, '%Y-%d-%m').date()
 
      # Check if the username or email already exists in the database
     cursor.execute("SELECT * FROM employees WHERE username = ? OR email = ?", (username, email))
