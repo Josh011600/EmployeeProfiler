@@ -84,7 +84,7 @@ function searchDatabase() {
         <button type="submit" id="saveButton" onclick="saveUser()">Hello</button>
         
        
-      <table class="table">
+      <table class="table" >
         <tr>
             <th>ID</th>
             <th>Name</th>
@@ -103,11 +103,12 @@ function searchDatabase() {
                         <td>{{ employee[3] }}</td>
                         <td>{{ employee[6] }}</td>
                         <td>{{ employee[7] }}</td>
-                        <td><button type="button" id="updateButton" onclick="updateUser()">Update</button><button type="button" id="deleteButton" onclick="deleteUser()">Delete</button></td>
+                        <td><button type="button" id="updateButton" onclick="updateUser()">Update</button><button type="submit" id="deleteButton" onclick="deleteUser()">Delete</button></td>
                       </tr>
                 {% endfor %}
               
     </table>
+  
     </div>
     <script>
       function updateUser() {
