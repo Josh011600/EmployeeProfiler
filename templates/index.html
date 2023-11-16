@@ -11,9 +11,8 @@
     
     <div class="login-container">
         <h2>Login</h2>
-        {% if login_failed %}
-    <p style="color: red;">Login failed. Please check your credentials.</p>
-    {% endif %}
+        
+    
     <form action="/index" method="POST">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>

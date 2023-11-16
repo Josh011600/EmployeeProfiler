@@ -20,55 +20,15 @@
     
         </div>
         <div id="main-content">
-          <!-- Your main content goes here -->
-<!-- Your main content goes here 
-<h1>Welcome, {{ name|replace("'", "")|replace("(", "")|replace(")", "")|replace(",", "") }}!</h1>
--->
+          
 <h1>Welcome {{ usertype }} {{ username }} </h1>
 
-<script>
- //this is json code. ill use it later.
-function searchDatabase() {
-    const searchBox = document.getElementById('searchBox');
-    const searchResults = document.getElementById('searchResults');
-    
-    const searchTerm = searchBox.value.trim(); // Trim whitespace
 
-    if (searchTerm === '') {
-        searchResults.innerHTML = ''; // Clear previous results
-        return;
-    }
 
-    // Perform an AJAX request to your server-side script
-    fetch('/search', {
-        method: 'POST',
-        body: JSON.stringify({ query: searchTerm }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.length > 0) {
-            // Display search results if there are matches
-            const resultsHTML = data.map(result => `<div>${result}</div>`).join('');
-            searchResults.innerHTML = resultsHTML;
-        } else {
-            // Display "No results" message if there are no matches
-            searchResults.innerHTML = 'No results';
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-
-</script>
-
-          <div class="search-container">
-          <input type="search" id="searchBox" class="searchbox" placeholder="Search..." oninput="searchDatabase()">
-          <button class="btnsearch">search</button>
-  </div>        
+<form action="/search" method="post">
+          <input type="search" id="user_id" name="user_id" class="searchbox" placeholder="Search...">
+          <button class="btnsearch" type="submit">search</button>
+        </form>
  <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
 
@@ -80,12 +40,12 @@ function searchDatabase() {
 
         <label for="dob">Date of Birth:</label>
         <input type="date" id="dob" name="dob" required>
-    
-        <button type="submit" id="saveButton" onclick="saveUser()">Hello</button>
-        
-       
+    <br>
+       <button>ADD</button>
+      
       <table class="table" >
         <tr>
+          
             <th>ID</th>
             <th>Name</th>
             <th>Age</th>
@@ -96,7 +56,11 @@ function searchDatabase() {
         </tr>   
         
         {% for employee in employees %}
+       
         <tr>
+          
+         
+         
                         <td>{{ employee[0] }}</td>
                         <td>{{ employee[1] }}</td>
                         <td>{{ employee[2] }}</td>
@@ -104,11 +68,15 @@ function searchDatabase() {
                         <td>{{ employee[6] }}</td>
                         <td>{{ employee[7] }}</td>
                         <td><button type="button" id="updateButton" onclick="updateUser()">Update</button><button type="submit" id="deleteButton" onclick="deleteUser()">Delete</button></td>
+                        
+                       
+                        
                       </tr>
-                {% endfor %}
+                      {% endfor %}   
+               
               
     </table>
-  
+    
     </div>
     <script>
       function updateUser() {

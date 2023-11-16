@@ -8,7 +8,7 @@ app = Flask(__name__)
 def dashboard():
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM employees')
+    cursor.execute('SELECT * FROM employee')
     tasks = cursor.fetchall()
     conn.close()
     return render_template('index.html', tasks=tasks)
@@ -21,9 +21,9 @@ def validate_user(username_or_email, password):
     cursor = conn.cursor()
     # Check if the input is an email or username
     if '@' in username_or_email:  # Assuming email addresses have '@'
-        query = "SELECT username, usertype FROM employees WHERE email=? AND password=?"
+        query = "SELECT username, usertype FROM employee WHERE email=? AND password=?"
     else:
-        query = "SELECT username, usertype FROM employees WHERE username=? AND password=?"
+        query = "SELECT username, usertype FROM employee WHERE username=? AND password=?"
 
     cursor.execute(query, (username_or_email, password))
     user = cursor.fetchone()
@@ -39,10 +39,10 @@ def validate_user(username_or_email, password):
 def getEmployees():
   conn = sqlite3.connect('mydatabase.db')
   cursor = conn.cursor()
-  cursor.execute('SELECT * FROM employees')
-  employees = cursor.fetchall()
+  cursor.execute('SELECT * FROM employee')
+  employee = cursor.fetchall()
   conn.close()
-  return employees
+  return employee
 
 
 
@@ -53,7 +53,7 @@ def getEmployees():
 def getName():
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
-    cursor.execute('SELECT name FROM employees')
+    cursor.execute('SELECT name FROM employee')
     name = cursor.fetchall()
     conn.close()
     return name[0] if name else None
@@ -81,7 +81,7 @@ def index():
     elif usertype == 'employee':
              return render_template('user.html', username=username, usertype=usertype)
     
-    return render_template('index.html', login_failed=True)
+    return render_template('index.html', user=None)
 
 
 @app.route('/register')
@@ -96,22 +96,26 @@ def register_submit():
     age = int(request.form['age'])
     username = request.form['username']
     email = request.form['email']
+    contact = request.form['contact']
+    country = request.form['country']
+    city = request.form['city']
+    status = request.form['status']
     password = request.form['password']
     dateOfBirth = request.form['date_of_birth']
     # Convert the date string to a datetime object
     dateOfBirth = datetime.strptime(dateOfBirth, '%Y-%d-%m').date()
 
      # Check if the username or email already exists in the database
-    cursor.execute("SELECT * FROM employees WHERE username = ? OR email = ?", (username, email))
+    cursor.execute("SELECT * FROM employee WHERE username = ? OR email = ?", (username, email))
     existing_user = cursor.fetchone()
 
     if existing_user:
         return redirect(url_for('registration_failed', reason='Username or email already exists'))
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
-    # Insert the data into the 'users' table
-    cursor.execute("INSERT INTO employees (name, age, email, username, password, dateOfBirth, usertype) VALUES (?, ?, ?, ?, ?, ?, 'employee')",
-               (name, age, email, username, password, dateOfBirth))
+    # Insert the data into the 'employee' table
+    cursor.execute("INSERT INTO employee (name, age, email, contact, country, city, status, username, password, dateOfBirth, usertype) VALUES (?, ?, ?, ?, ?, ?, 'employee')",
+               (name, age, email, contact, country, city, status, username, password, dateOfBirth))
 
     conn.commit()
 
@@ -134,7 +138,25 @@ def registration_failed():
 def index_page():
     return render_template('index.html')
 
+#searchbar from admin
+@app.route('/search', methods=['POST'])
+def search():
+    user_id = request.form['user_id']
 
+    # Connect to the database
+    conn = sqlite3.connect('mydatabase.db')
+    cursor = conn.cursor()
+
+    # Search for the user with the given ID
+    cursor.execute('SELECT * FROM employee WHERE id = ?', (user_id,))
+    user = cursor.fetchone()
+
+    conn.close()
+
+    if user:
+        return f'User found: {user}'
+    else:
+        return 'User not found'
 
 
 

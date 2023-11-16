@@ -30,3 +30,7 @@
 }
 
 /* Additional responsive styles can be added as needed */
+* {
+ align-items: center;
+ align-content: center;
+}
