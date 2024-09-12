@@ -9,7 +9,7 @@
         }
 
         .login-container {
-            background-color: #1a237e; /* Darker blue color for the container */
+            background-color: #1a7b7e; /* Darker blue color for the container */
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -78,10 +78,10 @@
         .login-container p {
             text-align: center;
             margin-top: 20px;
-            color: #777777;
+            color: #f0f1f0;
         }
 
         .login-container p a {
-            color: #4CAF50;
+            color: #aef8b1;
             text-decoration: none;
         }
