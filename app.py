@@ -1,14 +1,27 @@
-
-from flask import Flask, render_template, request, redirect, url_for
-
-import sqlite3
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_mail import Mail, Message
+import sqlite3 
 from datetime import datetime
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+
 app = Flask(__name__)
 
 
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = 'egmpjosh@gmail.com'  # Replace with your email
+app.config['MAIL_PASSWORD'] = 'Eclipse0116@'  # Replace with your email password
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+
+mail = Mail(app)
 
 
+# Serializer to generate unique tokens
+s = URLSafeTimedSerializer('ThisIsASecret!')
 
+# Token expiration time (in seconds)
+TOKEN_EXPIRATION = 3600  # 1 hour
 
 
 
@@ -101,7 +114,18 @@ def register_submit():
 
     conn.commit()
 
+    # Generate the token
+    token = s.dumps(email, salt='email-confirm')
+    # Send confirmation email
+    msg = Message('Confirm Your Email', sender='egmpjosh@gmail.com', recipients=[email])
+    link = url_for('confirm_email', token=token, _external=True)
+    msg.body = f'Your link to confirm your email is: {link}'
+    mail.send(msg)
+
     return redirect(url_for('success'))
+
+
+
 
 @app.route('/success')
 def success():
@@ -118,3 +142,18 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 
+@app.route('/confirm_email/<token>')
+def confirm_email(token):
+    try:
+        email = s.loads(token, salt='email-confirm', max_age=TOKEN_EXPIRATION)
+    except SignatureExpired:
+        return '<h1>The token has expired!</h1>'
+
+    # Update the database to mark the email as confirmed
+    conn = sqlite3.connect('mydatabase.db')
+    cursor = conn.cursor()
+    cursor.execute("UPDATE users SET email_confirmed = 1 WHERE email = ?", (email,))
+    conn.commit()
+    conn.close()
+
+    return '<h1>Email confirmed! You can now log in.</h1>'
