@@ -63,23 +63,27 @@
         }
 
         .login-container input[type="submit"] {
-            background-color: #4CAF50;
+            background-color: #50e4d0;
             color: #ffffff;
             padding: 10px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
-
+    
         .login-container input[type="submit"]:hover {
-            background-color: #45a049;
+            
+            background-color: #cfff60;
         }
 
         .login-container p {
-            text-align: center;
+            display: flex;
+            align-items: center;
             margin-top: 20px;
             color: #f0f1f0;
         }
+
+        
 
         .login-container p a {
             color: #aef8b1;
