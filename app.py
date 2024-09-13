@@ -89,8 +89,20 @@ def register():
 
 @app.route('/register', methods=['POST'])
 def register_submit():
+
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
+    email = request.form['email']
+    token = s.dumps(email, salt='email-confirm')
+
+    # Build the URL with the token
+    link = url_for('confirm_email', token=token, _external=True)
+
+    # Send the email with the confirmation link
+    msg = Message('Confirm Your Email', sender='your_email@gmail.com', recipients=[email])
+    msg.body = f'Your link to confirm your email is: {link}'
+    mail.send(msg)
+    
     name = request.form['name']
     age = int(request.form['age'])
     username = request.form['username']
@@ -121,8 +133,8 @@ def register_submit():
     link = url_for('confirm_email', token=token, _external=True)
     msg.body = f'Your link to confirm your email is: {link}'
     mail.send(msg)
-
-    return redirect(url_for('success'))
+    
+    return 'A confirmation email has been sent to your email address.'+redirect(url_for('success'))
 
 
 
